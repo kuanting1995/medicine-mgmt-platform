@@ -2,7 +2,7 @@
 require __DIR__ . '/parts/connect_db.php';
 require __DIR__ . '/parts/admin-required.php';
 $title = "會員管理頁";
-$nowpage = "members";
+$pageSid = "6";
 
 
 ?>
@@ -113,7 +113,7 @@ $city_num = count($city);
 
                     <input class="form-control me-2" type="search" placeholder="搜尋會員姓名" name="src_name" id="src_name">
 
-                    <? /*性別*/?>
+                    <? /*性別*/ ?>
                     <select class="form-select form-select me-2" type="search" placeholder="會員性別" name="src_gen"
                         id="src_gen">
                         <option value="" selected>性別</option>
@@ -122,12 +122,12 @@ $city_num = count($city);
                         <option value="male">男</option>
                     </select>
 
-                    <? /*縣市*/?>
+                    <? /*縣市*/ ?>
 
                     <select class="form-select me-2" name="src_city" id="src_city"> </select>
 
 
-                    <? /*查詢btn*/?>
+                    <? /*查詢btn*/ ?>
 
                     <button class="btn btn-outline-secondary" type="submit"><i
                             class="fa-solid fa-magnifying-glass"></i></button>
@@ -322,7 +322,7 @@ $city_num = count($city);
         const citys = citysele.value;
 
 
-        location.href = `member_src_list.php?id=${id}&name=${name}&gender=${gender}&city=${citys}`;
+        location.href = `member-src-list.php?id=${id}&name=${name}&gender=${gender}&city=${citys}`;
     }
     </script>
     <?php include __DIR__ . '/parts/html-foot.php'; ?>

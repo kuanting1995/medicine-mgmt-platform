@@ -4,7 +4,7 @@ if (!isset($title)) $title = '';
 ?>
 <nav class="navbar navbar-expand-lg bg-light fixed-top" style="height:5vh">
     <div class="container-fluid" style="width:98%">
-        <a class="navbar-brand" style="height:auto" href="index.php">正元參藥行</a>
+        <a class="navbar-brand" style="height:auto" href="index_.php">正元參藥行</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -17,7 +17,7 @@ if (!isset($title)) $title = '';
             </ul>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><?= $title ?></a>
+                    <a class="nav-link" href="/"><?= $title ?></a>
                 </li>
             </ul>
             <!-- 登入登出 -->

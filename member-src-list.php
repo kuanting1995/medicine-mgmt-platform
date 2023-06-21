@@ -214,7 +214,7 @@ $city_num = count($city);
                         </td>
 
                         <td style="color:#4a493b">
-                            <a href="member_detail.php?member_id=<?= $r['member_id'] ?>" class="btn"> <i
+                            <a href="member-detail.php?member_id=<?= $r['member_id'] ?>" class="btn"> <i
                                     class="fa-solid fa-layer-group"></i></a>
                         </td>
                     </tr>
