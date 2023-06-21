@@ -5,7 +5,7 @@ $title = '登入';
 
 // 如果已經登入，跳轉到首頁
 if (isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: index_.php');
     exit;
 }
 

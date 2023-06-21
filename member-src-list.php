@@ -3,9 +3,6 @@ require __DIR__ . '/parts/connect_db.php';
 require __DIR__ . '/parts/admin-required.php';
 
 $title = "會員搜尋結果";
-$nowpage = "member_src_list";
-
-
 ?>
 
 <?php

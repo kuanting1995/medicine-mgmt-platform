@@ -1,39 +1,25 @@
 <?php
-require __DIR__ . '/parts/connect_db.php';
-require __DIR__ . '/parts/admin-required.php';
-$pageName = 'storeList';
-$title = '修改工作室通訊錄';
-
-$sid = isset($_GET['storeSid']) ? intval($_GET['storeSid']) : 0;
-if (empty($sid)) {
-  header('Location: ./storeList.php');
-  exit;
-}
-
-$sql = "SELECT * FROM `store` WHERE storeSid=$sid";
-$r = $pdo->query($sql)->fetch();
-if (empty($r)) {
-  header('Location: ./storeList.php');
-  exit;
-}
+require __DIR__ . '/connect/admin-required.php';
+require __DIR__ . '/connect/connect_db.php';
+$pageName = 'productList';
+$title = '新增工作室通訊錄';
 
 ?>
-<?php include __DIR__ . '/parts/html-head.php'; ?>
-
+<?php include __DIR__ . '/parts/html-head.php' ?>
 <style>
 .form-text {
     color: red;
 }
 </style>
+<?php include __DIR__ . '/parts/navbar.php' ?>
 
-<?php include __DIR__ . '/parts/navbar.php'; ?>
-
-<div class="col-lg-9">
+<div class="col-9">
     <div class="card">
+
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title">工作室詳細資料</h4>
-                <a class="btn btn-secondary" href="storeList.php" role="button">
+                <h4 class="card-title">新增工作室</h4>
+                <a class="btn btn-secondary" href="product-list.php" role="button">
                     返回工作室管理列表
                 </a>
             </div>
@@ -42,9 +28,9 @@ if (empty($r)) {
                 <form name="form2">
                     <div class="mb-3 d-flex">
                         <div>
-                            <label for="Logo" class="form-label">工作室Logo</label>
+                            <label for="logo" class="form-label">工作室Logo</label>
                             <br>
-                            <img id="myimg" src="store/images/<?= $r['storeLogo'] ?>" alt="">
+                            <img id="myimg" src="product/images/<?= $r['productLogo'] ?>" alt="">
                             <input type="file" name="Logo" id="Logo" accept="image/*" style="display:none" />
                         </div>
                     </div>
@@ -52,73 +38,66 @@ if (empty($r)) {
                 </form>
             </div>
 
-
             <form name="form1" onsubmit="checkForm(event)" novalidate>
                 <div class="mb-3">
-                    <input type="hidden" name="sid" value="<?= $r['storeSid'] ?>">
-                    <input type="hidden" name="logo1" id="logo1" accept="image/*" value="<?= $r['storeLogo'] ?>" />
+                    <input type="hidden" name="sid" value="<?= $r['productSid'] ?>">
+                    <input type="hidden" name="logo1" id="logo1" accept="image/*" value="" />
                 </div>
 
                 <div class="mb-3">
                     <label for="name" class="form-label">店名</label>
-                    <input type="text" class="form-control" id="name" name="name" required placeholder="工作室店名"
-                        value="<?= $r['storeName'] ?>">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="工作室店名" required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="leader" class="form-label">負責人</label>
-                    <input type="text" class="form-control" id="leader" name="leader" required placeholder="負責人姓名"
-                        value="<?= $r['storeLeader'] ?>">
+                    <input type="text" class="form-control" id="leader" name="leader" placeholder="負責人姓名" required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="account" class="form-label">帳號</label>
-                    <input type="text" class="form-control" id="account" name="account" required
-                        placeholder="請輸入4-20字元長度的帳號" value="<?= $r['storeAccount'] ?>">
+                    <input type="text" class="form-control" id="account" name="account" placeholder="請輸入4-20字元長度的帳號"
+                        required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">密碼</label>
-                    <input type="text" class="form-control" id="password" name="password" required
-                        placeholder="設定4-20位數密碼" value="<?= $r['storePassword'] ?>">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="設定4-20位數密碼"
+                        required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="leaderId" class="form-label">負責人身分證</label>
-                    <input type="text" class="form-control" id="leaderId" name="leaderId" required placeholder="身分證"
-                        value="<?= $r['storeLeaderId'] ?>">
+                    <input type="text" class="form-control" id="leaderId" name="leaderId" placeholder="身分證" required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="mobile" class="form-label">電話號碼</label>
-                    <input type="text" class="form-control" id="mobile" name="mobile" required placeholder="工作室電話號碼"
-                        value="<?= $r['storeMobile'] ?>">
+                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="工作室電話號碼" required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">信箱</label>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="Email"
-                        value="<?= $r['storeEmail'] ?>">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="website" class="form-label">官方網站</label>
-                    <input type="text" class="form-control" id="website" name="website" required placeholder="網站"
-                        value="<?= $r['storeWebsite'] ?>">
+                    <input type="text" class="form-control" id="website" name="website" placeholder="網站" required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="city" class="form-label">縣市</label>
                     <select name="city" class="form-select">
-                        <option><?= $r['storeCity'] ?></option>
+                        <option placeholder="請選擇縣市">請選擇縣市</option>
                         <option value="臺北市">臺北市</option>
                         <option value="新北市">新北市</option>
                         <option value="基隆市">基隆市</option>
@@ -147,75 +126,43 @@ if (empty($r)) {
 
                 <div class="mb-3">
                     <label for="address" class="form-label">地址</label>
-                    <input type="text" class="form-control" id="address" name="address" required placeholder="工作室地址"
-                        value="<?= $r['storeAddress'] ?>">
+                    <input type="text" class="form-control" id="address" name="address" placeholder="工作室地址" required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="time" class="form-label">營業時間</label>
-                    <input type="text" class="form-control" id="time" name="time" required placeholder="00:00-24:00"
-                        value="<?= $r['storeTime'] ?>">
+                    <input type="text" class="form-control" id="time" name="time" placeholder="00:00-24:00" required>
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="rest" class="form-label">休息日</label>
-                    <input type="text" class="form-control" id="rest" name="rest" value="<?= $r['storeRest'] ?>">
+                    <input type="text" class="form-control" id="rest" name="rest">
                     <div class="form-text"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="news" class="form-label">工作室介紹</label>
-                    <textarea class="form-control" name="news" id="news" cols="50"
-                        rows="5"><?= $r['storeNews'] ?></textarea>
+                    <textarea class="form-control" name="news" id="news" cols="50" rows="5"></textarea>
                     <div class="form-text"></div>
                 </div>
 
-                <div class="mb-3">
-                    <p>註冊時間</p>
-                    <p class="border p-2"><?= $r['storeCreatedAt'] ?></p>
-                </div>
-
-                <div class="mb-3">
-                    <p>最後異動時間</p>
-                    <p class="border p-2"><?= $r['storeEditAt'] ?></p>
-                </div>
-
-                <div class="alert alert-primary" role="alert" id="myAlert" style="display: none;"></div>
-                <button type="submit" class="btn btn-primary">修改</button>
-
-                <a class="btn btn-primary" href="storeList.php" role="button">
-                    返回
-                </a>
-
+                <button type="submit" class="btn btn-primary">新增</button>
             </form>
         </div>
     </div>
 </div>
-</div>
-</div>
-<?php include __DIR__ . '/parts/scripts.php'; ?>
+
+<?php include __DIR__ . '/parts/scripts.php' ?>
+
 <script>
-const rowData = <?= json_encode($r, JSON_UNESCAPED_UNICODE) ?>;
-
-
 const mobile_re = /(^(\(0\d{1}\)|0\d{1}\-)?\d{7,8}$)|(^09\d{2}-?\d{3}-?\d{3}$)/;
 
 const email_re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zAZ]{2,}))$/;
 
 const leaderId_re = /^[A-Za-z]{1}[1-2]{1}[0-9]{8}$/;
-
-const myAlert = document.querySelector('#myAlert');
-const showAlert = function(msg = '沒給訊息文字', type = 'primary') {
-    myAlert.innerHTML = msg;
-    myAlert.className = `alert alert-${type}`;
-    myAlert.style.display = 'block';
-}
-const hideAlert = function() {
-    myAlert.style.display = 'none';
-}
 
 const checkForm = function(event) {
     event.preventDefault();
@@ -314,47 +261,37 @@ const checkForm = function(event) {
     if (isPass) {
         const fd = new FormData(document.form1);
 
-        fetch('store/storeEdit-api.php', {
+        fetch('product/product-add-api.php', {
             method: 'POST',
             body: fd,
         }).then(r => r.json()).then(obj => {
+            console.log(obj);
             if (obj.success) {
-                showAlert('修改成功', 'success');
-
+                alert('新增成功');
+                location.href = "product-list.php";
             } else {
                 for (let id in obj.errors) {
                     const field = document.querySelector(`#${id}`);
                     field.style.border = '2px solid red';
                     field.nextElementSibling.innerHTML = obj.errors[id];
                 }
-
-                if (obj.msg) {
-                    showAlert(obj.msg);
-                }
             }
-
-            setTimeout(() => {
-                hideAlert();
-            }, 3000)
         })
     }
-
-
-
 };
 
 const Logo = document.form2.Logo;
 Logo.onchange = function(event) {
     event.preventDefault();
     const fd = new FormData(document.form2);
-    fetch("store/storeUpload.php", {
+    fetch("product/product-upload.php", {
         method: "POST",
         body: fd
     }).then(r => r.json()).then(obj => {
-        myimg.src = "/JIM/store/images/" + obj.filename;
+        myimg.src = "/images/" + obj.filename;
         document.querySelector('#logo1').value = `${obj.filename}`;
 
     })
 }
 </script>
-<?php include __DIR__ . '/parts/html-foot.php'; ?>
+<?php include __DIR__ . '/parts/html-foot.php' ?>

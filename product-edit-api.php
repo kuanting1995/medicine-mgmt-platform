@@ -57,23 +57,23 @@ if (!empty($email) and !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 
 if ($isPass) {
-  $sql = "UPDATE `store` SET
-    `storeLogo`=?, 
-    `storeName`=?, 
-    `storeLeader`=?, 
-    `storeAccount`=?, 
-    `storePassword`=?, 
-    `storeLeaderId`=?, 
-    `storeMobile`=?,
-    `storeEmail`=?, 
-    `storeWebsite`=?,
-    `storeCity`=?,
-    `storeAddress`=?,
-    `storeTime`=?,
-    `storeRest`=?,
-    `storeNews`=?,
-    `storeEditAt`=NOW() 
-    WHERE `storeSid`=?";
+  $sql = "UPDATE `product` SET
+    `productLogo`=?, 
+    `productName`=?, 
+    `productLeader`=?, 
+    `productAccount`=?, 
+    `productPassword`=?, 
+    `productLeaderId`=?, 
+    `productMobile`=?,
+    `productEmail`=?, 
+    `productWebsite`=?,
+    `productCity`=?,
+    `productAddress`=?,
+    `productTime`=?,
+    `productRest`=?,
+    `productNews`=?,
+    `productEditAt`=NOW() 
+    WHERE `productSid`=?";
 
   $stmt = $pdo->prepare($sql);
 

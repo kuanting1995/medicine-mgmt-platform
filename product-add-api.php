@@ -48,8 +48,8 @@ if (!empty($email) and !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 
 if ($isPass) {
-    $sql = "INSERT INTO `store`(
-        `storeName`,`storeAccount`,`storePassword`,`storeLeader`,`storeLeaderId`,`storeMobile`,`storeCity`,`storeAddress`,`storeEmail`,`storeTime`,`storeRest`,`storeWebsite`,`storeLogo`,`storeNews`,`storeCreatedAt`) VALUES(
+    $sql = "INSERT INTO `product`(
+        `productName`,`productAccount`,`productPassword`,`productLeader`,`productLeaderId`,`productMobile`,`productCity`,`productAddress`,`productEmail`,`productTime`,`productRest`,`productWebsite`,`productLogo`,`productNews`,`productCreatedAt`) VALUES(
         ?,?,?,?,
         ?,?,?,?,
         ?,?,?,?,
