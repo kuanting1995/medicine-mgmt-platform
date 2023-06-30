@@ -76,7 +76,7 @@ $city_num = count($city);
                     <option value="none" selected disabled hidden>自幾號</option>
                     <?php foreach ($all as $a) : ?>
 
-                    <option value="<?= $a['member_id'] ?>"><?= $a['member_id'] ?></option>
+                        <option value="<?= $a['member_id'] ?>"><?= $a['member_id'] ?></option>
                     <?php endforeach; ?>
 
                 </select>
@@ -84,7 +84,7 @@ $city_num = count($city);
                 <select name="export_e_id" id="export_e_id" class="form-select form-select-sm me-2">
                     <option value="none" selected>全筆</option>
                     <?php foreach ($all as $a) : ?>
-                    <option value="<?= $a['member_id'] ?>"><?= $a['member_id'] ?></option>
+                        <option value="<?= $a['member_id'] ?>"><?= $a['member_id'] ?></option>
                     <?php endforeach; ?>
 
                 </select>
@@ -114,8 +114,7 @@ $city_num = count($city);
                     <input class="form-control me-2" type="search" placeholder="搜尋會員姓名" name="src_name" id="src_name">
 
                     <? /*性別*/ ?>
-                    <select class="form-select form-select me-2" type="search" placeholder="會員性別" name="src_gen"
-                        id="src_gen">
+                    <select class="form-select form-select me-2" type="search" placeholder="會員性別" name="src_gen" id="src_gen">
                         <option value="" selected>性別</option>
 
                         <option value="female">女</option>
@@ -129,8 +128,7 @@ $city_num = count($city);
 
                     <? /*查詢btn*/ ?>
 
-                    <button class="btn btn-outline-secondary" type="submit"><i
-                            class="fa-solid fa-magnifying-glass"></i></button>
+                    <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
 
 
@@ -157,8 +155,7 @@ $city_num = count($city);
 
                 <thead>
                     <tr class="thead">
-                        <td scope="col" style="color:#4a493b"><i class="fa-solid fa-pen-to-square"
-                                style="color:#4a493b"></i></td>
+                        <td scope="col" style="color:#4a493b"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i></td>
 
                         <td>會員編號</td>
                         <td>姓名</td>
@@ -179,16 +176,16 @@ $city_num = count($city);
                     <?php foreach ($rows as $r) : ?>
 
 
-                    <tr style="color: <?= $r['member_level_id'] === 5 ? "red" : '#4a493b' ?>;">
-                        <td style="color:#4a493b"><a href="member-edit.php?member_id=<?= $r['member_id'] ?>">
-                                <i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i></a></td>
+                        <tr style="color: <?= $r['member_level_id'] === 5 ? "red" : '#4a493b' ?>;">
+                            <td style="color:#4a493b"><a href="member-edit.php?member_id=<?= $r['member_id'] ?>">
+                                    <i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i></a></td>
 
-                        <td><?= $r['member_id'] ?></td>
-                        <td><?= $r['member_name'] ?></td>
-                        <td><?= $r['email'] ?></td>
-                        <td><?= $r['gender'] === "female" ? "女" : "男" ?></td>
-                        <td><?= $r['mobile'] ?></td>
-                        <td style="color:<?php
+                            <td><?= $r['member_id'] ?></td>
+                            <td><?= $r['member_name'] ?></td>
+                            <td><?= $r['email'] ?></td>
+                            <td><?= $r['gender'] === "female" ? "女" : "男" ?></td>
+                            <td><?= $r['mobile'] ?></td>
+                            <td style="color:<?php
                                                 if ($r['member_level_id'] == 1) {
                                                     echo "goldenrod";
                                                 } elseif ($r['member_level_id'] == 2) {
@@ -198,14 +195,13 @@ $city_num = count($city);
                                                 } elseif ($r['member_level_id'] == 5) {
                                                     echo "red";
                                                 } ?>">
-                            <?= $r['name'] ?>
-                        </td>
+                                <?= $r['name'] ?>
+                            </td>
 
-                        <td style="color:#4a493b">
-                            <a href="member-detail.php?member_id=<?= $r['member_id'] ?>" class="btn"> <i
-                                    class="fa-solid fa-layer-group"></i></a>
-                        </td>
-                    </tr>
+                            <td style="color:#4a493b">
+                                <a href="member-detail.php?member_id=<?= $r['member_id'] ?>" class="btn"> <i class="fa-solid fa-layer-group"></i></a>
+                            </td>
+                        </tr>
 
 
                     <?php endforeach; ?>
@@ -248,10 +244,9 @@ $city_num = count($city);
                             }
 
                             for ($i = $left; $i <= $right; $i++) : ?>
-                            <li class=" me-2">
-                                <a class="page-link" style="color: #4a493b;background-color:#f4f4f5;"
-                                    href="?page=<?= $i ?>"><?= $i ?></a>
-                            </li>
+                                <li class=" me-2">
+                                    <a class="page-link" style="color: #4a493b;background-color:#f4f4f5;" href="?page=<?= $i ?>"><?= $i ?></a>
+                                </li>
 
 
                             <?php endfor; ?>
@@ -286,43 +281,43 @@ $city_num = count($city);
     <?php include __DIR__ . '/parts/scripts.php' ?>
 
     <script>
-    const tr = document.querySelectorAll("tbody tr");
-    const changeColor = [...tr];
-    for (let i in changeColor) {
-        if (i % 2 === 0) {
-            changeColor[i].style = "background-color:#fff";
+        const tr = document.querySelectorAll("tbody tr");
+        const changeColor = [...tr];
+        for (let i in changeColor) {
+            if (i % 2 === 0) {
+                changeColor[i].style = "background-color:#fff";
+            }
+        };
+        //縣市選單
+        const citysele = document.querySelector("#src_city");
+
+        const city = <?= json_encode($city) ?>;
+        //都市選擇
+        let cityinner = "";
+        for (let i = 0; i < city.length; i++) {
+            cityinner = cityinner + '<option value=' + city[i] + '>' + city[i] + '</option>';
         }
-    };
-    //縣市選單
-    const citysele = document.querySelector("#src_city");
-
-    const city = <?= json_encode($city) ?>;
-    //都市選擇
-    let cityinner = "";
-    for (let i = 0; i < city.length; i++) {
-        cityinner = cityinner + '<option value=' + city[i] + '>' + city[i] + '</option>';
-    }
-    citysele.innerHTML = `<option value="" selected hidden>縣市</option>` + cityinner;
+        citysele.innerHTML = `<option value="" selected hidden>縣市</option>` + cityinner;
 
 
-    const exPort = function(event) {
-        event.preventDefault();
-        const sid = (document.querySelector('#export_s_id').value);
-        const eid = (document.querySelector('#export_e_id').value);
-        location.href = `member_export_api.php?export_s_id=${sid}&export_e_id=${eid}`
-    }
+        const exPort = function(event) {
+            event.preventDefault();
+            const sid = (document.querySelector('#export_s_id').value);
+            const eid = (document.querySelector('#export_e_id').value);
+            location.href = `member_export_api.php?export_s_id=${sid}&export_e_id=${eid}`
+        }
 
 
 
-    const Serch = function(event) {
-        event.preventDefault();
-        const id = (document.querySelector('#src_id').value);
-        const name = (document.querySelector('#src_name').value);
-        const gender = (document.querySelector('#src_gen').value);
-        const citys = citysele.value;
+        const Serch = function(event) {
+            event.preventDefault();
+            const id = (document.querySelector('#src_id').value);
+            const name = (document.querySelector('#src_name').value);
+            const gender = (document.querySelector('#src_gen').value);
+            const citys = citysele.value;
 
 
-        location.href = `member-src-list.php?id=${id}&name=${name}&gender=${gender}&city=${citys}`;
-    }
+            location.href = `member-src-list.php?id=${id}&name=${name}&gender=${gender}&city=${citys}`;
+        }
     </script>
     <?php include __DIR__ . '/parts/html-foot.php'; ?>

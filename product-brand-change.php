@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/parts/connect_db.php';
-require __DIR__ . '/parts/admin_required.php';
+require __DIR__ . '/parts/admin-required.php';
 
 //頁面名稱
 $pageName = "brand";
@@ -85,7 +85,8 @@ if ($totalRows > 0) {
     <div class="row">
         <div class="col-4 d-flex justify-content-between">
             <a href="product-add.php" class="btn btn-outline-secondary me-4 " role="button">新增商品</a>
-            <form action="product-product-change.php" method="post" class="col-5 d-flex justify-content-between" onchange="submit()">
+            <form action="product-product-change.php" method="post" class="col-5 d-flex justify-content-between"
+                onchange="submit()">
                 <select class="form-select form-select-sm" name="product_change">
                     <option selected>所有商品</option>
                     <option value="1">手機</option>
@@ -97,7 +98,8 @@ if ($totalRows > 0) {
         </div>
 
         <div class="col-4">
-            <form action="product-brand-change.php" method="post" class="col-5 d-flex justify-content-between" onchange="submit()">
+            <form action="product-brand-change.php" method="post" class="col-5 d-flex justify-content-between"
+                onchange="submit()">
                 <select class="form-select form-select-sm" name="brand_change">
                     <option selected>所有品牌</option>
                     <option value="1">ASUS</option>
@@ -150,7 +152,8 @@ if ($totalRows > 0) {
     <table class="table table-striped ">
         <thead>
             <tr class="fw-light">
-                <th scope="col" style="color:#4a493b"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i></th>
+                <th scope="col" style="color:#4a493b"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i>
+                </th>
                 <th scope="col" style="color:#4a493b">商品編號</th>
                 <th scope="col" style="color:#4a493b">商品分類</th>
                 <th scope="col" style="color:#4a493b">商品名稱</th>
@@ -164,19 +167,21 @@ if ($totalRows > 0) {
         </thead>
         <tbody>
             <?php foreach ($rows as $r) : ?>
-                <tr>
-                    <td><a href="product-edit.php?product_id=<?= $r['product_id'] ?>"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i></a></td>
-                    <td><?= $r['product_id'] ?></td>
-                    <td><?= $r['product_category_id'] ?></td>
-                    <td><?= $r['product_name'] ?></td>
-                    <td><?= $r['product_price'] ?></td>
-                    <td><img class="product_img" style="width:100px;" src="./image/<?= $r['product_pic'] ?>"></td>
-                    <td><?= $r['brand_category_id'] ?></td>
-                    <td><?= $r['created_at'] ?></td>
-                    <td><?= $r['updated_at'] ?></td>
+            <tr>
+                <td><a href="product-edit.php?product_id=<?= $r['product_id'] ?>"><i class="fa-solid fa-pen-to-square"
+                            style="color:#4a493b"></i></a></td>
+                <td><?= $r['product_id'] ?></td>
+                <td><?= $r['product_category_id'] ?></td>
+                <td><?= $r['product_name'] ?></td>
+                <td><?= $r['product_price'] ?></td>
+                <td><img class="product_img" style="width:100px;" src="./image/<?= $r['product_pic'] ?>"></td>
+                <td><?= $r['brand_category_id'] ?></td>
+                <td><?= $r['created_at'] ?></td>
+                <td><?= $r['updated_at'] ?></td>
 
-                    <td><a href="javascript: delete_it(<?= $r['product_id'] ?>) "><i class="fa-solid fa-trash-can" style="color:#4a493b"></i></a></td>
-                </tr>
+                <td><a href="javascript: delete_it(<?= $r['product_id'] ?>) "><i class="fa-solid fa-trash-can"
+                            style="color:#4a493b"></i></a></td>
+            </tr>
             <?php endforeach ?>
         </tbody>
     </table>
@@ -194,10 +199,11 @@ if ($totalRows > 0) {
                         <!-- 迴圈頁面 -->
                         <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
 
-                            <!--  頁面跳轉-->
-                            <li class=" page-item <?= $page == $i ? 'active' : '' ?> me-2">
-                                <a class="page-link" style="color: #4a493b;background-color:#f4f4f5;" href="?page=<?= $i ?> "><?= $i ?></a>
-                            </li>
+                        <!--  頁面跳轉-->
+                        <li class=" page-item <?= $page == $i ? 'active' : '' ?> me-2">
+                            <a class="page-link" style="color: #4a493b;background-color:#f4f4f5;"
+                                href="?page=<?= $i ?> "><?= $i ?></a>
+                        </li>
                         <?php
                         endfor; ?>
 
@@ -215,28 +221,28 @@ if ($totalRows > 0) {
 
 <?php require __DIR__ . "/parts/script.php" ?>
 <script>
-    const tr = document.querySelectorAll("tbody tr");
+const tr = document.querySelectorAll("tbody tr");
 
-    const changeColor = [...tr];
-    for (let i in changeColor) {
-        if (i % 2 === 0) {
-            changeColor[i].style = "background-color:#fffacd";
-        }
+const changeColor = [...tr];
+for (let i in changeColor) {
+    if (i % 2 === 0) {
+        changeColor[i].style = "background-color:#fffacd";
     }
+}
 
-    // const del = document.querySelectorAll('.del');
+// const del = document.querySelectorAll('.del');
 
-    // [...del].map(el => el.addEventListener('click', e =>
-    //     // e.currentTarget.closest('tr')
-    // e.currentTarget.closest('tr').remove()));
+// [...del].map(el => el.addEventListener('click', e =>
+//     // e.currentTarget.closest('tr')
+// e.currentTarget.closest('tr').remove()));
 
 
 
-    function delete_it(product_id) {
-        if (confirm(`是否要刪除編號為 ${product_id } 的資料?`)) {
-            location.href = 'product-delete.php?product_id=' + product_id;
-        }
+function delete_it(product_id) {
+    if (confirm(`是否要刪除編號為 ${product_id } 的資料?`)) {
+        location.href = 'product-delete.php?product_id=' + product_id;
     }
+}
 </script>
 
 

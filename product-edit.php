@@ -1,211 +1,131 @@
 <?php
-require __DIR__ . '/connect/admin-required.php';
-require __DIR__ . '/connect/connect_db.php';
-$pageName = 'productList';
-$title = '修改工作室通訊錄';
+require __DIR__ . '/parts/connect_db.php';
+require __DIR__ . '/parts/admin-required.php';
 
-$sid = isset($_GET['productSid']) ? intval($_GET['productSid']) : 0;
-if (empty($sid)) {
-  header('Location: ./product-list.php');
+$pageName = 'edit';
+$title = '修改商品頁';
+
+$product_id = isset($_GET['product_id']) ? intval($_GET['product_id']) : 0;
+if (empty($product_id)) {
+  header('Location: product_total.php'); // 轉向到列表頁
   exit;
 }
 
-$sql = "SELECT * FROM `product` WHERE productSid=$sid";
+$sql = "SELECT * FROM product_total WHERE product_id=$product_id";
 $r = $pdo->query($sql)->fetch();
 if (empty($r)) {
-  header('Location: ./product-list.php');
+  header('Location: product_total.php'); // 轉向到列表頁
   exit;
 }
 
-?>
-<?php include __DIR__ . '/parts/html-head.php'; ?>
 
+?>
+<?php include __DIR__ . '/parts/html-head.php' ?>
 <style>
 .form-text {
     color: red;
 }
 </style>
+<?php include __DIR__ . '/parts/navbar.php' ?>
+<div class="container w-75 my-5">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card">
 
-<?php include __DIR__ . '/parts/navbar.php'; ?>
-
-<div class="col-lg-9">
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <h4 class="card-title">工作室詳細資料</h4>
-                <a class="btn btn-secondary" href="product-list.php" role="button">
-                    返回工作室管理列表
-                </a>
-            </div>
-
-            <div class="d-flex justify-content-between">
-                <form name="form2">
-                    <div class="mb-3 d-flex">
-                        <div>
-                            <label for="Logo" class="form-label">工作室Logo</label>
-                            <br>
-                            <img id="myimg" src="product/images/<?= $r['productLogo'] ?>" alt="">
-                            <input type="file" name="Logo" id="Logo" accept="image/*" style="display:none" />
+                <div class="card-body">
+                    <form name="form1" onsubmit="checkForm(event)" novalidate>
+                        <input type="hidden" name="product_id" value="<?= $r['product_id'] ?>">
+                        <div class="mb-3">
+                            <label for="product_category_id" class="form-label">商品分類</label>
+                            <select class="form-select" id="product_category_id" name="product_category_id">
+                                <option selected>所有商品</option>
+                                <option value="1">手機</option>
+                                <option value="2">平板</option>
+                                <option value="3">耳機</option>
+                            </select>
                         </div>
-                    </div>
-                    <button style="height:50px" type="button" onclick="Logo.click()">上傳檔案</button>
+                        <div class="mb-3">
+                            <p></p>
+                            <label for="product_name" class="form-label">商品名稱</label>
+                            <input type="text" class="form-control" id="product_name" name="product_name" required
+                                value="<?= htmlentities($r['product_name']) ?>">
+                            <div class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="product_price" class="form-label">商品價格</label>
+                            <input type="text" class="form-control" id="product_price" name="product_price" required
+                                value="<?= htmlentities($r['product_price']) ?>">
+                            <div class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="product_pic" class="form-label">商品圖片</label>
+                            <select class="form-select" id="product_pic" name="product_pic">
+                                <option selected>所有圖片</option>
+                                <option>264.jpeg</option>
+                                <option>265.png</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="brand_category_id" class="form-label">品牌分類</label>
+                            <select class="form-select" id="brand_category_id" name="brand_category_id">
+                                <option selected>所有品牌</option>
+                                <option value="1">ASUS</option>
+                                <option value="2">小米</option>
+                                <option value="3">Google</option>
+                                <option value="4">NOKIA</option>
+                                <option value="5">Apple</option>
+                                <option value="6">Motorola</option>
+                                <option value="7">realme</option>
+                                <option value="8">SAMSUNG</option>
+                                <option value="9">OPPO</option>
+                                <option value="10">Sony</option>
+                                <option value="11">SUGAR</option>
+                                <option value="12">Microsoft</option>
+                                <option value="13">Lenovo</option>
+                                <option value="14">AVITA</option>
+                                <option value="15">TCL</option>
+                                <option value="16">SuperPad</option>
+                                <option value="17">ALLDOCUBE</option>
+                                <option value="18">HUAWEI</option>
+                                <option value="19">Benten</option>
+                                <option value="20">Ergotech</option>
+                                <option value="21">ARKO</option>
+                                <option value="22">OPAD</option>
+                                <option value="23">WIZ</option>
+                                <option value="24">Dream</option>
+                                <option value="25">IS</option>
+                                <option value="26">soundcore</option>
+                                <option value="27">Philips</option>
+                                <option value="28">thecoopidea</option>
+                                <option value="29">Libratone</option>
+                                <option value="30">Beats</option>
+                                <option value="31">audio-technica</option>
+                                <option value="32">Monster</option>
+                                <option value="33">Xround</option>
+                            </select>
+                        </div>
+
+
+                </div>
+
+                <button onclick="alert('修改未成功,離開!'),location.href='product_total.php'" , type="submit"
+                    class="btn btn-outline" id="bee-btn">離開</button>
+
+                <button onclick="alert('修改成功!'),location.href='product_total.php'" , type="submit"
+                    class="btn btn-outline" id="bee-btn" style="background-color:darkseagreen">修改</button>
                 </form>
             </div>
-
-
-            <form name="form1" onsubmit="checkForm(event)" novalidate>
-                <div class="mb-3">
-                    <input type="hidden" name="sid" value="<?= $r['productSid'] ?>">
-                    <input type="hidden" name="logo1" id="logo1" accept="image/*" value="<?= $r['productLogo'] ?>" />
-                </div>
-
-                <div class="mb-3">
-                    <label for="name" class="form-label">店名</label>
-                    <input type="text" class="form-control" id="name" name="name" required placeholder="工作室店名"
-                        value="<?= $r['productName'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="leader" class="form-label">負責人</label>
-                    <input type="text" class="form-control" id="leader" name="leader" required placeholder="負責人姓名"
-                        value="<?= $r['productLeader'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="account" class="form-label">帳號</label>
-                    <input type="text" class="form-control" id="account" name="account" required
-                        placeholder="請輸入4-20字元長度的帳號" value="<?= $r['productAccount'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">密碼</label>
-                    <input type="text" class="form-control" id="password" name="password" required
-                        placeholder="設定4-20位數密碼" value="<?= $r['productPassword'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="leaderId" class="form-label">負責人身分證</label>
-                    <input type="text" class="form-control" id="leaderId" name="leaderId" required placeholder="身分證"
-                        value="<?= $r['productLeaderId'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="mobile" class="form-label">電話號碼</label>
-                    <input type="text" class="form-control" id="mobile" name="mobile" required placeholder="工作室電話號碼"
-                        value="<?= $r['productMobile'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">信箱</label>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="Email"
-                        value="<?= $r['productEmail'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="website" class="form-label">官方網站</label>
-                    <input type="text" class="form-control" id="website" name="website" required placeholder="網站"
-                        value="<?= $r['productWebsite'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="city" class="form-label">縣市</label>
-                    <select name="city" class="form-select">
-                        <option><?= $r['productCity'] ?></option>
-                        <option value="臺北市">臺北市</option>
-                        <option value="新北市">新北市</option>
-                        <option value="基隆市">基隆市</option>
-                        <option value="桃園市">桃園市</option>
-                        <option value="新竹市">新竹市</option>
-                        <option value="新竹縣">新竹縣</option>
-                        <option value="臺中市">臺中市</option>
-                        <option value="臺南市">臺南市</option>
-                        <option value="高雄市">高雄市</option>
-                        <option value="苗栗縣">苗栗縣</option>
-                        <option value="彰化縣">彰化縣</option>
-                        <option value="南投縣">南投縣</option>
-                        <option value="雲林縣">雲林縣</option>
-                        <option value="嘉義市">嘉義市</option>
-                        <option value="嘉義縣">嘉義縣</option>
-                        <option value="屏東縣">屏東縣</option>
-                        <option value="宜蘭縣">宜蘭縣</option>
-                        <option value="花蓮縣">花蓮縣</option>
-                        <option value="臺東縣">臺東縣</option>
-                        <option value="澎湖縣">澎湖縣</option>
-                        <option value="金門縣">金門縣</option>
-                        <option value="連江縣">連江縣</option>
-                    </select>
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="address" class="form-label">地址</label>
-                    <input type="text" class="form-control" id="address" name="address" required placeholder="工作室地址"
-                        value="<?= $r['productAddress'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="time" class="form-label">營業時間</label>
-                    <input type="text" class="form-control" id="time" name="time" required placeholder="00:00-24:00"
-                        value="<?= $r['productTime'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="rest" class="form-label">休息日</label>
-                    <input type="text" class="form-control" id="rest" name="rest" value="<?= $r['productRest'] ?>">
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="news" class="form-label">工作室介紹</label>
-                    <textarea class="form-control" name="news" id="news" cols="50"
-                        rows="5"><?= $r['productNews'] ?></textarea>
-                    <div class="form-text"></div>
-                </div>
-
-                <div class="mb-3">
-                    <p>註冊時間</p>
-                    <p class="border p-2"><?= $r['productCreatedAt'] ?></p>
-                </div>
-
-                <div class="mb-3">
-                    <p>最後異動時間</p>
-                    <p class="border p-2"><?= $r['productEditAt'] ?></p>
-                </div>
-
-                <div class="alert alert-primary" role="alert" id="myAlert" style="display: none;"></div>
-                <button type="submit" class="btn btn-primary">修改</button>
-
-                <a class="btn btn-primary" href="product-list.php" role="button">
-                    返回
-                </a>
-
-            </form>
         </div>
+
     </div>
 </div>
 </div>
-</div>
-<?php include __DIR__ . '/parts/scripts.php'; ?>
+
+
+<?php include __DIR__ . '/parts/scripts.php' ?>
+
 <script>
 const rowData = <?= json_encode($r, JSON_UNESCAPED_UNICODE) ?>;
-
-
-const mobile_re = /(^(\(0\d{1}\)|0\d{1}\-)?\d{7,8}$)|(^09\d{2}-?\d{3}-?\d{3}$)/;
-
-const email_re =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zAZ]{2,}))$/;
-
-const leaderId_re = /^[A-Za-z]{1}[1-2]{1}[0-9]{8}$/;
 
 const myAlert = document.querySelector('#myAlert');
 const showAlert = function(msg = '沒給訊息文字', type = 'primary') {
@@ -219,142 +139,43 @@ const hideAlert = function() {
 
 const checkForm = function(event) {
     event.preventDefault();
+    // 欄位外觀回復原來的樣子
     document.form1.querySelectorAll('input.form-control').forEach(function(el) {
-        el.style.border = '1px solid black';
-        el.nextElementSibling.innerHTML = '';
-    });
-    document.form1.querySelectorAll('select').forEach(function(el) {
-        el.style.border = '1px solid black';
-        el.nextElementSibling.innerHTML = '';
-    });
-    document.form1.querySelectorAll('textarea.form-control').forEach(function(el) {
-        el.style.border = '1px solid black';
+        el.style.border = '1px solid #CCCCCC';
         el.nextElementSibling.innerHTML = '';
     });
 
-    let isPass = true;
-    let field = document.form1.name;
-
-    if (field.value.length < 2) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請輸入正確的店名';
-    }
-
-    field = document.form1.leader;
-    if (field.value.length < 2) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請輸入負責人姓名';
-    }
-
-    field = document.form1.account;
-    if ((field.value.length < 4) | (field.value.length > 20)) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請輸入正確的帳號格式';
-    }
-
-    field = document.form1.password;
-    if ((field.value.length < 4) | (field.value.length > 20)) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '密碼長度需4-20位數密碼';
-    }
-
-    field = document.form1.leaderId;
-    if (!leaderId_re.test(field.value)) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請輸入正確的身分證格式';
-    }
-
-    field = document.form1.mobile;
-    if (!mobile_re.test(field.value)) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請輸入正確的電話號碼格式';
-    }
-
-    field = document.form1.email;
-    if (!email_re.test(field.value)) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請輸入正確的 email 格式';
-    }
-
-    field = document.form1.website;
-    if (field.value.length < 3) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請輸入網站';
-    }
-
-    field = document.form1.city;
-    if (field.value.length > 4) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請選擇縣市';
-    }
-
-    field = document.form1.address;
-    if (field.value.length < 3) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請輸入地址';
-    }
-
-    field = document.form1.time;
-    if (field.value.length < 3) {
-        isPass = false;
-        field.style.border = '2px solid red';
-        field.nextElementSibling.innerHTML = '請輸入營業時間';
-    }
-
-    if (isPass) {
-        const fd = new FormData(document.form1);
-
-        fetch('product/productEdit-api.php', {
-            method: 'POST',
-            body: fd,
-        }).then(r => r.json()).then(obj => {
-            if (obj.success) {
-                showAlert('修改成功', 'success');
-
-            } else {
-                for (let id in obj.errors) {
-                    const field = document.querySelector(`#${id}`);
-                    field.style.border = '2px solid red';
-                    field.nextElementSibling.innerHTML = obj.errors[id];
-                }
-
-                if (obj.msg) {
-                    showAlert(obj.msg);
-                }
-            }
-
-            setTimeout(() => {
-                hideAlert();
-            }, 3000)
-        })
-    }
 
 
 
-};
 
-const Logo = document.form2.Logo;
-Logo.onchange = function(event) {
-    event.preventDefault();
-    const fd = new FormData(document.form2);
-    fetch("product/productUpload.php", {
-        method: "POST",
-        body: fd
+
+    const fd = new FormData(document.form1);
+
+    fetch('product-edit-api.php', {
+        method: 'POST',
+        body: fd,
     }).then(r => r.json()).then(obj => {
-        myimg.src = "/JIM/product/images/" + obj.filename;
-        document.querySelector('#logo1').value = `${obj.filename}`;
+        console.log(obj);
+        if (obj.success) {
+            showAlert('修改成功', 'success');
+            // 跳轉到列表頁
+        } else {
+            for (let id in obj.errors) {
+                const field = document.querySelector(`#${id}`);
+                field.style.border = '2px solid red';
+                // field.closest('.mb-3').querySelector('.form-text').innerHTML = obj.errors[id];
+                field.nextElementSibling.innerHTML = obj.errors[id];
+            }
+            if (obj.msg) {
+                showAlert(obj.msg);
+            }
+        }
 
+        setTimeout(() => {
+            hideAlert();
+        }, 2000)
     })
-}
+};
 </script>
-<?php include __DIR__ . '/parts/html-foot.php'; ?>
+<?php include __DIR__ . '/parts/html-foot.php' ?>

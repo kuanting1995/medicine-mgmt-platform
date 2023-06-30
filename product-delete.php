@@ -1,17 +1,18 @@
 <?php
-require __DIR__ . '/../connect/admin-required-for-api.php';
-require __DIR__ . '/../connect/connect_db.php';
+require __DIR__ . '/parts/connect_db.php';
+require __DIR__ . '/parts/admin_required.php';
 
-$sid = isset($_GET['productSid']) ? intval($_GET['productSid']) : 0;
-if (empty($sid)) {
-  header('Location: ../product-list.php'); // 轉向到列表頁
+
+$product_id = isset($_GET['product_id']) ? intval($_GET['product_id']) : 0;
+if (empty($product_id)) {
+  header('Location: product_total.php'); // 轉向到列表頁
   exit;
 }
 
-$pdo->query("DELETE FROM `product` WHERE productSid=$sid");
+$pdo->query("DELETE FROM `product_total` WHERE 	product_id=$product_id");
 
 if (empty($_SERVER['HTTP_REFERER'])) {
-  header('Location: ../product-list.php');
+  header('Location: product_total.php');
 } else {
   header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

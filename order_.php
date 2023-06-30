@@ -35,7 +35,7 @@ if ($totalRows > 0) {
 
     .my-btn {
         border: 1px solid #4a493b;
-        background-color: #f4f4f5;
+        background-color: #fff;
     }
 
     .my-btn:hover {
@@ -47,8 +47,8 @@ if ($totalRows > 0) {
 <?php include __DIR__ . '/parts/sidebars.php' ?>
 
 
-<div class="container w-75">
-    <div class="mb-5">
+<div class="container w-75 mt-5">
+    <div class="mb-3">
         <div class="row ">
             <div class="col-3 d-flex justify-content-between ">
                 <!-- <select class="form-select form-select-sm">
@@ -80,7 +80,7 @@ if ($totalRows > 0) {
             <div class="col-3">
                 <form name="form1" method="post" action="" class="d-flex" role="search">
                     <input name="keyword" id="keyword" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    <button class="btn btn-outline-secondary" type="submit">search</button>
                 </form>
             </div>
 
@@ -205,7 +205,7 @@ if ($totalRows > 0) {
         const changeColor = [...tr];
         for (let i in changeColor) {
             if (i % 2 === 0) {
-                changeColor[i].style = "background-color:#f4f4f5";
+                changeColor[i].style = "background-color:#fff";
             }
         }
 

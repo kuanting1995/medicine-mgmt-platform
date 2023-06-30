@@ -11,7 +11,7 @@
     #bee-btn {
         border: 1px solid #4a493b;
         transform: translateX(-50%), translateY(-50%);
-        background-color: #F6E8B0;
+        background-color: #c6bbac;
         position: absolute;
         left: 45.5%;
         bottom: 3%;
@@ -32,13 +32,14 @@ if (empty($sid)) {
     exit;
 }
 
-$sql = "SELECT * FROM `order_all`o JOIN  `member_list`m ON 
+$sql = "SELECT * FROM `order_all`o JOIN  `members`m ON 
 o.`member_id`=m.`member_id`
  WHERE `order_id`=$sid";
 
 $sqll = "SELECT * FROM `order_all`oo JOIN  `product_total`p ON 
 oo.`product_id`=p.`product_id`
  WHERE `order_id`=$sid";
+
 $r = $pdo->query($sql)->fetch();
 $row = $pdo->query($sqll)->fetch();
 if (empty($r)) {
@@ -79,7 +80,7 @@ $dist = $stmt_dist->fetchAll(PDO::FETCH_ASSOC);
 <div class="container butten">
     <div class="row justify-content-center">
         <div class="col-6">
-            <form style="border:1px solid gray;background-color:#F6E7B0" class="px-5 py-4 rounded " name="form" onsubmit="checkForm(event)" novalidate>
+            <form style="border:1px solid gray;background-color:#c6bbac" class="px-5 py-4 rounded " name="form" onsubmit="checkForm(event)" novalidate>
                 <input type="hidden" name="order_id" value="<?= $r['order_id'] ?>">
                 <div class="mb-3">
                     <label for="order_day" class="form-label">訂購日期</label>
@@ -148,7 +149,7 @@ $dist = $stmt_dist->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </div>
 
-<?php require __DIR__ . '/parts/script.php' ?>
+<?php require __DIR__ . '/parts/scripts.php' ?>
 
 <script>
     //地址選單
@@ -162,7 +163,9 @@ $dist = $stmt_dist->fetchAll(PDO::FETCH_ASSOC);
     for (let i = 0; i < city.length; i++) {
         cityinner = cityinner + '<option value=' + city[i] + '>' + city[i] + '</option>';
     }
-    citysele.innerHTML = `<option value="<?= $r['order_address_city'] ?>" selected  hidden><?= $r['order_address_city'] ?></option>` + cityinner;
+    citysele.innerHTML =
+        `<option value="<?= $r['order_address_city'] ?>" selected  hidden><?= $r['order_address_city'] ?></option>` +
+        cityinner;
 
     //鄉鎮區選擇
     function citychange(ind) {
@@ -172,7 +175,9 @@ $dist = $stmt_dist->fetchAll(PDO::FETCH_ASSOC);
         for (let i = 0; i < dist2.length; i++) {
             distinner = distinner + '<option value=' + dist2[i].ct_name + '>' + dist2[i].ct_name + '</option>'
         };
-        distsele.innerHTML = `<option value="<?= $r['order_address_dist'] ?>" selected  hidden><?= $r['order_address_dist'] ?></option>` + distinner;
+        distsele.innerHTML =
+            `<option value="<?= $r['order_address_dist'] ?>" selected  hidden><?= $r['order_address_dist'] ?></option>` +
+            distinner;
     }
 
     citychange(document.getElementById("city-list").selectedIndex);

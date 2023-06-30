@@ -1,9 +1,9 @@
 <?php
 
-require __DIR__.'/parts/connect_db.php';
-require __DIR__.'/parts/admin_required_for_api.php.';
+require __DIR__ . '/parts/connect_db.php';
+require __DIR__ . '/parts/admin-required-for-api.php';
 
-$pdo = mysqli_connect("192.168.21.92", "beebee1", "beebee1", "beebee1");
+$pdo = mysqli_connect("localhost", "medicine", "medicine", "medicine");
 
 $sql = "SELECT * FROM `product_total`pt JOIN
 `product`p ON pt.`product_category_id` = p.`product_category_id`JOIN
@@ -11,13 +11,13 @@ $sql = "SELECT * FROM `product_total`pt JOIN
 
 
 
-$stmt =mysqli_query($pdo,$sql);
+$stmt = mysqli_query($pdo, $sql);
 
 
 
 
- 
- $export = '
+
+$export = '
  <table> 
  <tr> 
  <th>商品id </th>
@@ -32,31 +32,29 @@ $stmt =mysqli_query($pdo,$sql);
  
  </tr>
  ';
- while($row = mysqli_fetch_array($stmt))
- {
-    $imgdata = base64_decode($row['product_pic']);
+while ($row = mysqli_fetch_array($stmt)) {
+   $imgdata = base64_decode($row['product_pic']);
 
 
-    
- $export .= '
+
+   $export .= '
  <tr>
- <td>'.$row["product_id"].'</td> 
- <td>'.$row["product_category_id"].'</td> 
- <td>'.$row["product_category"].'</td> 
- <td>'.$row["product_name"].'</td> 
- <td>'.$row["product_price"].'</td> 
- <td>'.$row['product_pic'].'</td> 
- <td>'.$row["brand_category_id"].'</td> 
- <td>'.$row["brand_category"].'</td> 
- <td>'.$row["created_at"].'</td> 
+ <td>' . $row["product_id"] . '</td> 
+ <td>' . $row["product_category_id"] . '</td> 
+ <td>' . $row["product_category"] . '</td> 
+ <td>' . $row["product_name"] . '</td> 
+ <td>' . $row["product_price"] . '</td> 
+ <td>' . $row['product_pic'] . '</td> 
+ <td>' . $row["brand_category_id"] . '</td> 
+ <td>' . $row["brand_category"] . '</td> 
+ <td>' . $row["created_at"] . '</td> 
 
  
  
  </tr>
  ';
- }
- $export .= '</table>';
- header('Content-Type: application/xls');
- header('Content-Disposition: attachment; filename=member_data.xls');
- echo $export;
- 
+}
+$export .= '</table>';
+header('Content-Type: application/xls');
+header('Content-Disposition: attachment; filename=member_data.xls');
+echo $export;
