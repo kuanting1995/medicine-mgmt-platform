@@ -28,7 +28,6 @@ $product_name = $_POST['product_name'];
 $product_price = $_POST['product_price'];
 $product_pic = $_POST['product_pic'];
 $brand_category_id = $_POST['brand_category_id'];
-$logo = $_POST['logo1'];
 
 $isPass = true; // 預設是通過的
 
@@ -48,7 +47,6 @@ if ($isPass) {
     $product_price,
     $product_pic,
     $brand_category_id,
-    $logo,
   ]);
 
   if ($stmt->rowCount()) {

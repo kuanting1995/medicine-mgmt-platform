@@ -95,36 +95,22 @@ $title = '新增商品頁';
                             </select>
                         </div>
 
-                    </form>
-                    <? //上傳圖片按鈕
-                    ?>
-                    <div class="d-flex justify-content-between">
-                        <form name="form2">
-                            <div class="mb-3 d-flex">
-                                <div>
-                                    <label for="logo" class="form-label">產品圖上傳</label>
-                                    <br>
-                                    <img id="myimg" src="image/<?= $r['product_pic'] ?>" alt="">
-                                    <input type="file" name="Logo" id="Logo" accept="image/*" />
-                                </div>
-                            </div>
-                            <!-- <button style="height:50px" type="button" onclick="Logo.click()">上傳檔案</button> -->
-                        </form>
-                    </div>
 
                 </div>
-
-
-                <button onclick="alert('新增未成功,離開!'),location.href='product_total.php'" , type="submit"
-                    class="btn btn-outline" id="bee-btn">離開</button>
-
-                <button onclick="alert('新增成功!'),location.href='product_total.php'" , type="submit"
-                    class="btn btn-outline" id="bee-btn" style="background-color:darkseagreen">新增</button>
-                </form>
             </div>
-        </div>
+            </form>
 
+
+            <button onclick="alert('新增未成功,離開!'),location.href='product_total.php'" , type="submit"
+                class="btn btn-outline" id="bee-btn">離開</button>
+
+            <button onclick="alert('新增成功!'),location.href='product_total.php'" , type="submit" class="btn btn-outline"
+                id="bee-btn" style="background-color:darkseagreen">新增</button>
+            </form>
+        </div>
     </div>
+
+</div>
 </div>
 </div>
 
@@ -165,18 +151,18 @@ const checkForm = function(event) {
     })
 };
 //上傳圖片
-const Logo = document.form2.Logo;
-Logo.onchange = function(event) {
+const proPic1 = document.form2.proPic
+proPic1.onchange = function(event) {
     event.preventDefault();
     const fd = new FormData(document.form2);
-    fetch("product-upload.php", {
+    fetch("porduct-upload.php", {
         method: "POST",
         body: fd
-    }).then(r => r.json()).then(obj => {
-        myimg.src = "/medicine/image/" + obj.filename;
-        document.querySelector('#logo1').value = `${obj.filename}`;
-
+    }).then(r = r.json()).then(obj => {
+        myimg.src = "/image/" + obj.filename;
+        document.querySelector("#proPic")
     })
+
 }
 </script>
 <?php include __DIR__ . '/parts/html-foot.php' ?>

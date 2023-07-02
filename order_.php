@@ -27,6 +27,7 @@ if ($totalRows > 0) {
 
 <?php include __DIR__ . '/parts/html-head.php' ?>
 <?php include __DIR__ . '/parts/css-style.php' ?>
+<?php include __DIR__ . '/parts/navbar.php' ?>
 
 <style>
     .fonts {
