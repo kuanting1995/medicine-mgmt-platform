@@ -26,8 +26,9 @@ $isPass = true;
 $product_category_id = $_POST['product_category_id'];
 $product_name = $_POST['product_name'];
 $product_price = $_POST['product_price'];
-$product_pic = $_POST['product_pic'];
+$product_pic = $_POST['productPic1'];
 $brand_category_id = $_POST['brand_category_id'];
+
 
 $isPass = true; // 預設是通過的
 

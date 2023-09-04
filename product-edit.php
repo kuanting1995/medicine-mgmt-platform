@@ -27,12 +27,13 @@ if (empty($r)) {
 }
 </style>
 <?php include __DIR__ . '/parts/navbar.php' ?>
-<div class="container w-75 my-5">
-    <div class="row justify-content-center">
-        <div class="col-6">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
             <div class="card">
 
                 <div class="card-body">
+                    <h5 class="card-title">修改商品資料</h5>
                     <form name="form1" onsubmit="checkForm(event)" novalidate>
                         <input type="hidden" name="product_id" value="<?= $r['product_id'] ?>">
                         <div class="mb-3">
@@ -122,7 +123,7 @@ if (empty($r)) {
 </div>
 
 
-<?php include __DIR__ . '/parts/scripts.php' ?>
+<?php require __DIR__ . "/parts/scripts.php" ?>
 
 <script>
 const rowData = <?= json_encode($r, JSON_UNESCAPED_UNICODE) ?>;

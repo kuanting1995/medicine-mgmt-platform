@@ -5,7 +5,7 @@ require __DIR__ . "/parts/connect_db.php";
 $pageName = "product_total";
 
 //網站標題
-$title = "產品管理頁";
+$title = "商品管理頁";
 
 //每頁顯示幾個
 $perPage = 7;
@@ -53,18 +53,23 @@ if ($totalRows > 0) {
 }
 
 
+
 ?>
 
 
-<?php include __DIR__ . '/parts/html-head.php' ?>
-<?php include __DIR__ . '/parts/css-style.php' ?>
-<?php include __DIR__ . '/parts/navbar.php' ?>
+
+<?php require __DIR__ . "/parts/html-head.php" ?>
+
+
+<?php require __DIR__ . "/parts/navbar.php" ?>
 <?php include __DIR__ . '/parts/sidebars.php' ?>
 
-<div class="container w-75 mt-5">
-    <div class="mb-3">
+<div class="container w-75">
+
+
+    <div class="container mb-5">
         <div class="row">
-            <div class="col-5 d-flex justify-content-between">
+            <div class="col-4 d-flex justify-content-between">
                 <a href="product-add.php" class="btn btn-outline-secondary me-4 " role="button">新增商品</a>
                 <a class="btn btn-outline-secondary me-2" onclick="exPort(event)">匯出資料</a>
                 <form action="product-product-change.php" method="post" class="col-5 d-flex justify-content-between" onchange="submit()">
@@ -78,8 +83,8 @@ if ($totalRows > 0) {
 
             </div>
 
-            <div class="col-2">
-                <form action="product-brand-change.php" method="post" class=" d-flex justify-content-between" onchange="submit()">
+            <div class="col-4">
+                <form action="product-brand-change.php" method="post" class="col-5 d-flex justify-content-between" onchange="submit()">
                     <select class="form-select form-select-sm" name="brand_change">
                         <option selected>所有品牌</option>
                         <option value="1">ASUS</option>
@@ -118,7 +123,7 @@ if ($totalRows > 0) {
                     </select>
                 </form>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <form class="d-flex" method="post" action="product-search.php">
                     <input class="form-control me-2" type="text" placeholder="請輸入商品名稱" name="product-search">
                     <button class="btn btn-outline-secondary" type="submit">Search</button>
@@ -130,94 +135,94 @@ if ($totalRows > 0) {
 
     </div>
 
-    <table class="table table-striped ">
-        <thead>
-            <tr class="fw-light">
-                <th scope="col" style="color:#4a493b"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i>
-                </th>
-                <th scope="col" style="color:#4a493b">商品編號</th>
-                <th scope="col" style="color:#4a493b">商品分類</th>
-                <th scope="col" style="color:#4a493b">商品名稱</th>
-                <th scope="col" style="color:#4a493b">商品價格</th>
-                <th scope="col" style="color:#4a493b">商品圖</th>
-                <th scope="col" style="color:#4a493b">品牌分類</th>
-                <th scope="col" style="color:#4a493b">上架時間</th>
-                <th scope="col" style="color:#4a493b">更新時間</th>
-                <th scope="col" style="color:#4a493b"><i class="fa-solid fa-trash-can" style="color:#4a493b"></i></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($rows as $r) : ?>
-                <tr>
-                    <td><a href="product-edit.php?product_id=<?= $r['product_id'] ?>"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i></a></td>
-                    <td><?= $r['product_id'] ?></td>
-                    <td><?= $r['product_category'] ?></td>
-                    <td><?= $r['product_name'] ?></td>
-                    <td><?= $r['product_price'] ?></td>
-                    <td><img class="product_img" style="width:100px;" src="./image/<?= $r['product_pic'] ?>">
-                    </td>
-                    <td><?= $r['brand_category'] ?></td>
-                    <td><?= $r['created_at'] ?></td>
-                    <td><?= $r['updated_at'] ?></td>
-
-                    <td><a href=" javascript: delete_it(<?= $r['product_id'] ?>) "><i class=" fa-solid fa-trash-can" style="color:#4a493b"></i></a></td>
+    <div class="container">
+        <table class="table table-striped ">
+            <thead>
+                <tr class="fw-light">
+                    <th scope="col" style="color:#4a493b"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i>
+                    </th>
+                    <th scope="col" style="color:#4a493b">商品編號</th>
+                    <th scope="col" style="color:#4a493b">商品分類</th>
+                    <th scope="col" style="color:#4a493b">商品名稱</th>
+                    <th scope="col" style="color:#4a493b">商品價格</th>
+                    <th scope="col" style="color:#4a493b">商品圖</th>
+                    <th scope="col" style="color:#4a493b">品牌分類</th>
+                    <th scope="col" style="color:#4a493b">上架時間</th>
+                    <th scope="col" style="color:#4a493b">更新時間</th>
+                    <th scope="col" style="color:#4a493b"><i class="fa-solid fa-trash-can" style="color:#4a493b"></i></th>
                 </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
-    <?php
-    //頁碼
-    $perPage = 10;
-    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-    if ($page < 1) {
-        header('Location: ?page=1');
-        exit;
-    }
-    $t_sql = "SELECT COUNT(1) FROM members";
-    $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+            </thead>
+            <tbody>
+                <?php foreach ($rows as $r) : ?>
+                    <tr>
+                        <td><a href="product-edit.php?product_id=<?= $r['product_id'] ?>"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i></a></td>
+                        <td><?= $r['product_id'] ?></td>
+                        <td><?= $r['product_category_id'] ?></td>
+                        <td><?= $r['product_name'] ?></td>
+                        <td><?= $r['product_price'] ?></td>
+                        <td><img class="product_img" style="width:100px;" src="./image/<?= $r['product_pic'] ?>"></td>
+                        <td><?= $r['brand_category_id'] ?></td>
+                        <td><?= $r['created_at'] ?></td>
+                        <td><?= $r['updated_at'] ?></td>
 
-    $totalPage = ceil($totalRows / $perPage);
-    $showpage = 3; //每次要顯示幾筆分頁
-    $cut = floor($showpage / 2); //以目前所在頁次 為中心 往左右各顯示幾個頁次 以無條件捨去
-    ?>
+                        <td><a href="javascript: delete_it(<?= $r['product_id'] ?>) "><i class="fa-solid fa-trash-can" style="color:#4a493b"></i></a></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+        <?php
+        //頁碼
+        $perPage = 10;
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        if ($page < 1) {
+            header('Location: ?page=1');
+            exit;
+        }
+        $t_sql = "SELECT COUNT(1) FROM members";
+        $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
+
+        $totalPage = ceil($totalRows / $perPage);
+        $showpage = 8; //每次要顯示幾筆分頁
+        $cut = floor($showpage / 2); //以目前所在頁次 為中心 往左右各顯示幾個頁次 以無條件捨去
+        ?>
 
 
 
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <nav>
-                <ul class="pagination">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <nav>
+                    <ul class="pagination">
 
-                    <li class="  me-1">
-                        <a class="page-link" style="color: #4a493b;" href='<?= "?page=({$page} - 1)" ?>'>上一頁</a>
-                    </li>
-
-                    <?php
-                    $left = 1;
-                    $right = $totalPage;
-                    if ($totalPage > $showpage) {
-                        if ($page <= $cut) {
-                            $left = $page - 1;
-                        } else {
-                            $left = $cut;
-                        }
-                        if ($page > $totalPage - $cut) {
-                            $right = ($page == $totalPage ? 0 : 1);
-                            $left += $left - $right;
-                        } else {
-                            $right = $cut + ($cut - $left);
-                        }
-                        $left = $page - $left;
-                        $right = $page + $right;
-                    }
-
-                    for ($i = $left; $i <= $right; $i++) : ?>
-                        <li class=" me-2">
-                            <a class="page-link" style="color: #4a493b;background-color:#fff;" href="?page=<?= $i ?>"><?= $i ?></a>
+                        <li class="  me-1">
+                            <a class="page-link" style="color: #4a493b;" href='<?= "?page=({$page} - 1)" ?>'>上一頁</a>
                         </li>
 
+                        <?php
+                        $left = 1;
+                        $right = $totalPage;
+                        if ($totalPage > $showpage) {
+                            if ($page <= $cut) {
+                                $left = $page - 1;
+                            } else {
+                                $left = $cut;
+                            }
+                            if ($page > $totalPage - $cut) {
+                                $right = ($page == $totalPage ? 0 : 1);
+                                $left += $left - $right;
+                            } else {
+                                $right = $cut + ($cut - $left);
+                            }
+                            $left = $page - $left;
+                            $right = $page + $right;
+                        }
 
-                    <?php endfor; ?>
+                        for ($i = $left; $i <= $right; $i++) : ?>
+                            <li class=" me-2">
+                                <a class="page-link" style="color: #4a493b;background-color:#f4f4f5;" href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
+
+
+                        <?php endfor; ?>
 
 
 
@@ -226,17 +231,15 @@ if ($totalRows > 0) {
 
 
 
-                    <li class=" me-1">
-                        <a class="page-link" style="color: #4a493b;" href="?page=<?= $page + 1 ?>">下一頁</a>
-                    </li>
-                </ul>
-            </nav>
+                        <li class=" me-1">
+                            <a class="page-link" style="color: #4a493b;" href="?page=<?= $page + 1 ?>">下一頁</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
 
-
-</div>
 </div>
 
 

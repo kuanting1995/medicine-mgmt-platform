@@ -9,7 +9,7 @@ $pageSid = "6";
 
 <?php
 
-$perPage = 7;
+$perPage = 10;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 if ($page < 1) {
     header('Location: ?page=1');

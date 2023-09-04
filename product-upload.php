@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-$fieldName = "Logo";
+$fieldName = "productPic";
 $extMap = [
     'image/png' => '.png',
     'image/jpeg' => '.jpg',

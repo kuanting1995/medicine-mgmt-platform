@@ -1,7 +1,6 @@
 <?php
 
 require __DIR__ . '/parts/connect_db.php';
-require __DIR__ . '/parts/admin-required.php';
 
 $pageName = 'add';
 $title = '新增商品頁';
@@ -10,23 +9,36 @@ $title = '新增商品頁';
 ?>
 <?php include __DIR__ . '/parts/html-head.php' ?>
 <style>
-.form-label,
-.p-color {
-    color: #4a493b;
-}
+    .form-label,
+    .p-color {
+        color: #4a493b;
+    }
 
-#bee-btn {
-    border: 1px solid #4a493b;
-}
+    #bee-btn {
+        border: 1px solid #4a493b;
+    }
 </style>
 
-
 <?php include __DIR__ . '/parts/navbar.php' ?>
-<div class="container w-75 my-5">
-    <div class="row justify-content-center">
-        <div class="col-6">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title">新增商品資料</h5>
+                    <div class="d-flex justify-content-between">
+                        <form name="form2">
+                            <div class="mb-3 d-flex">
+                                <div>
+                                    <label for="productPic" class="form-label">productPic</label>
+                                    <br>
+                                    <img id="myimg" src="../medicine0702/image/<?= $r['product_pic'] ?>" alt="">
+                                    <input type="file" name="productPic" id="productPic" accept="image/*" style="display:none" />
+                                </div>
+                            </div>
+                            <!-- <button style="height:50px" type="button" onclick="productPic.click()">上傳檔案</button> -->
+                        </form>
+                    </div>
                     <form name="form1" onsubmit="checkForm(event)" novalidate>
                         <div class="mb-3">
                             <label for="product_category_id" class="form-label">商品分類</label>
@@ -55,6 +67,9 @@ $title = '新增商品頁';
                                 <option>265.png</option>
                             </select>
                         </div> -->
+                        <div class="mb-3">
+                            <input type="hidden" name="productPic1" id="productPic1" accept="image/*" value="" />
+                        </div>
                         <div class="mb-3">
                             <label for="brand_category_id" class="form-label">品牌分類</label>
                             <select class="form-select" id="brand_category_id" name="brand_category_id">
@@ -95,74 +110,62 @@ $title = '新增商品頁';
                             </select>
                         </div>
 
+                        <button onclick="alert('新增未成功,離開!'),location.href='product_total.php'" , type="submit" class="btn btn-outline" id="bee-btn">離開</button>
 
+                        <button onclick="alert('新增成功!'),location.href='product_total.php'" , type="submit" class="btn btn-outline" id="bee-btn" style="background-color:darkseagreen">新增</button>
+                    </form>
                 </div>
             </div>
-            </form>
 
-
-            <button onclick="alert('新增未成功,離開!'),location.href='product_total.php'" , type="submit"
-                class="btn btn-outline" id="bee-btn">離開</button>
-
-            <button onclick="alert('新增成功!'),location.href='product_total.php'" , type="submit" class="btn btn-outline"
-                id="bee-btn" style="background-color:darkseagreen">新增</button>
-            </form>
         </div>
     </div>
-
-</div>
-</div>
 </div>
 
-
-
-
-<?php include __DIR__ . '/parts/scripts.php' ?>
-
+<?php require __DIR__ . "/parts/scripts.php" ?>
 
 <script>
-const checkForm = function(event) {
-    event.preventDefault();
+    const checkForm = function(event) {
+        event.preventDefault();
 
-    const fd = new FormData(document.form1);
-    fetch('product-add-api.php', {
-        method: 'POST',
-        body: fd,
-    }).then(r => r.json()).then(obj => {
-        console.log(obj);
-        if (obj.success) {
-            showAlert('新增成功', 'success');
-            // 跳轉到列表頁
-        } else {
-            for (let id in obj.errors) {
-                const field = document.querySelector(`#${id}`);
-                field.style.border = '2px solid red';
-                // field.closest('.mb-3').querySelector('.form-text').innerHTML = obj.errors[id];
-                field.nextElementSibling.innerHTML = obj.errors[id];
+        const fd = new FormData(document.form1);
+        fetch('product-add-api.php', {
+            method: 'POST',
+            body: fd,
+        }).then(r => r.json()).then(obj => {
+            console.log(obj);
+            if (obj.success) {
+                showAlert('新增成功', 'success');
+                // 跳轉到列表頁
+            } else {
+                for (let id in obj.errors) {
+                    const field = document.querySelector(`#${id}`);
+                    field.style.border = '2px solid red';
+                    // field.closest('.mb-3').querySelector('.form-text').innerHTML = obj.errors[id];
+                    field.nextElementSibling.innerHTML = obj.errors[id];
+                }
+                if (obj.msg) {
+                    showAlert(obj.msg);
+                }
             }
-            if (obj.msg) {
-                showAlert(obj.msg);
-            }
-        }
 
-        setTimeout(() => {
-            hideAlert();
-        }, 2000)
-    })
-};
-//上傳圖片
-const proPic1 = document.form2.proPic
-proPic1.onchange = function(event) {
-    event.preventDefault();
-    const fd = new FormData(document.form2);
-    fetch("porduct-upload.php", {
-        method: "POST",
-        body: fd
-    }).then(r = r.json()).then(obj => {
-        myimg.src = "/image/" + obj.filename;
-        document.querySelector("#proPic")
-    })
+            setTimeout(() => {
+                hideAlert();
+            }, 2000)
+        })
+    };
+    //上傳圖片
+    const productPic = document.form2.productPic;
+    productPic.onchange = function(event) {
+        event.preventDefault();
+        const fd = new FormData(document.form2);
+        fetch("product-upload.php", {
+            method: "POST",
+            body: fd
+        }).then(r => r.json()).then(obj => {
+            myimg.src = "../medicine0702/image/" + obj.filename;
+            document.querySelector('#productPic1').value = `${obj.filename}`;
 
-}
+        })
+    }
 </script>
 <?php include __DIR__ . '/parts/html-foot.php' ?>

@@ -46,14 +46,10 @@ $hash = $r['password'];
 $output['success'] = password_verify($_POST['password'], $hash);
 //password_verify()函數會使用相應的hash算法（通常是BCrypt）將用戶提交的密碼與資料表password 中的hash進行比較，並返回一個布林值。
 if ($output['success']) {
-  $_SESSION['admin'] = [
-    'account' => $r['account']
-  ];
+  $_SESSION['admin'] = true;
 } else {
   $output['error'] = '帳號或密碼錯誤';
   echo json_encode($output, JSON_UNESCAPED_UNICODE);
   exit;
 }
-
-
 echo json_encode($output, JSON_UNESCAPED_UNICODE);

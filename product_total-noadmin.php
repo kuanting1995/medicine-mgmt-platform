@@ -12,7 +12,7 @@ $perPage = 10;
 
 //幾個tr
 $tr_count = 0;
-$tr_color = "background-color:#f6e8b0";
+$tr_color = "background-color:#fff";
 
 //用戶點選page 傳送query string
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -58,12 +58,21 @@ if ($totalRows > 0) {
 
 
 
-<?php include __DIR__ . '/parts/html-head.php' ?>
-<?php include __DIR__ . '/parts/css-style.php' ?>
-<?php include __DIR__ . '/parts/navbar.php' ?>
-<?php include __DIR__ . '/parts/sidebars.php' ?>
+<?php require __DIR__ . "/parts/html-head.php" ?>
 
-<div class="container w-75 mt-5">
+
+<?php require __DIR__ . "/parts/navbar.php" ?>
+<?php require __DIR__ . '/parts/sidebars.php' ?>
+<div class="container  w-75">
+    <div class="row justify-content-center mb-5">
+        <div class="col-4">
+            <h2 class="text-center">商品管理頁</h2>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mb-5">
     <div class="row">
         <div class="col-4 d-flex justify-content-between">
 
@@ -126,6 +135,13 @@ if ($totalRows > 0) {
         </div>
 
     </div>
+
+
+</div>
+
+<div class="container">
+
+
 
     <table class="table table-striped ">
         <thead>
@@ -221,7 +237,7 @@ if ($totalRows > 0) {
 
                     for ($i = $left; $i <= $right; $i++) : ?>
                         <li class=" me-2">
-                            <a class="page-link" style="color: #4a493b;background-color:#fff;" href="?page=<?= $i ?>"><?= $i ?></a>
+                            <a class="page-link" style="color: #4a493b;background-color:#f4f4f5;" href="?page=<?= $i ?>"><?= $i ?></a>
                         </li>
 
 

@@ -1,6 +1,6 @@
 <?php
 
-define('PROJ_ROOT', '/medicine');
+define('PROJ_ROOT', '/medicine0702');
 
 $db_host = 'localhost'; //連哪台主機
 $db_user = 'medicine'; //db使用者帳號

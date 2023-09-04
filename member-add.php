@@ -53,13 +53,6 @@ $dist = $stmt_dist->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-
-
-
-
-
-
-
 <div class="container">
     <div class="memberList mb-3">
         <form name="form1" class="form1" onsubmit="checkForm(event)">

@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/parts/connect_db.php';
-require __DIR__ . '/parts/admin_required.php';
+require __DIR__ . '/parts/admin-required.php';
 
 //頁面名稱
 $pageName = "product";
@@ -150,7 +150,8 @@ if ($totalRows > 0) {
     <table class="table table-striped ">
         <thead>
             <tr class="fw-light">
-                <th scope="col" style="color:#4a493b"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i></th>
+                <th scope="col" style="color:#4a493b"><i class="fa-solid fa-pen-to-square" style="color:#4a493b"></i>
+                </th>
                 <th scope="col" style="color:#4a493b">商品編號</th>
                 <th scope="col" style="color:#4a493b">商品分類</th>
                 <th scope="col" style="color:#4a493b">商品名稱</th>
